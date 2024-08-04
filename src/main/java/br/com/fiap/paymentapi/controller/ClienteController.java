@@ -47,7 +47,6 @@ public class ClienteController {
             })
 
     @PostMapping
-    @PreAuthorize("hasRole('CLIENTE')")
     public ResponseEntity<ClienteResponseDto> cadastrar(@Valid @RequestBody ClienteRequestDto clienteRequestDto, @AuthenticationPrincipal JwtUserDetails userDetails) {
         Cliente cliente = clienteService.salvar(clienteMapper.toEntity(clienteRequestDto));
         return ResponseEntity.status(201).body(clienteMapper.toDto(cliente));

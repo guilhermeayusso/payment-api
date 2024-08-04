@@ -9,7 +9,8 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 public class ClienteRequestDto implements Serializable {
 
     @NotNull(message = "CPF deve ser preenchido")
