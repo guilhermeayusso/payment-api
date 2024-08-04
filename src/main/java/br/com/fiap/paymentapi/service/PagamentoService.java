@@ -3,7 +3,6 @@ package br.com.fiap.paymentapi.service;
 import br.com.fiap.paymentapi.entity.Cartao;
 import br.com.fiap.paymentapi.entity.Pagamento;
 import br.com.fiap.paymentapi.repository.CartaoRepository;
-import br.com.fiap.paymentapi.repository.ClienteRepository;
 import br.com.fiap.paymentapi.repository.PagamentoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
