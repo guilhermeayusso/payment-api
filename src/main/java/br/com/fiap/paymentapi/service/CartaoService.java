@@ -5,6 +5,7 @@ import br.com.fiap.paymentapi.exception.CpfNotFoundException;
 import br.com.fiap.paymentapi.exception.CpfUniqueViolationException;
 import br.com.fiap.paymentapi.repository.CartaoRepository;
 import br.com.fiap.paymentapi.repository.ClienteRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ public class CartaoService {
     private final CartaoRepository cartaoRepository;
     private final ClienteRepository clienteRepository;
 
+    @Transactional
     public Cartao create(Cartao cartao) {
 
         if(!clienteRepository.existsByCpf(cartao.getCpf())){

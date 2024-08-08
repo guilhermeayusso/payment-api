@@ -11,7 +11,6 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 import java.math.BigDecimal;
-import java.time.YearMonth;
 
 @Sql(scripts = "/sql/cartoes/cartoes-insert.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(scripts = "/sql/cartoes/cartoes-delete.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
@@ -29,7 +28,7 @@ public class CartaoIT {
                 .uri("/api/v1/cartoes")
                 .contentType(MediaType.APPLICATION_JSON)
                 .headers(JwtAuthentication.getHeaderAuthorization(webTestClient, "bia@email.com", "123456789"))
-                .bodyValue(new CartaoRequestDto("12345678901", new BigDecimal(1000.00), "5678 6789 4572 9900", YearMonth.of(2024, 8), "123"))
+                .bodyValue(new CartaoRequestDto("12345678901", new BigDecimal(1000.00), "5678 6789 4572 9900", "07/25", "123"))
                 .exchange()
                 .expectStatus().isCreated()
                 .expectBody(CartaoResponseDto.class)
@@ -49,7 +48,7 @@ public class CartaoIT {
                 .uri("/api/v1/cartoes")
                 .contentType(MediaType.APPLICATION_JSON)
                 .headers(JwtAuthentication.getHeaderAuthorization(webTestClient, "bia@email.com", "123456789"))
-                .bodyValue(new CartaoRequestDto("12345678908", new BigDecimal(1000.00), "5678 6789 4572 9900", YearMonth.of(2024, 8), "123"))
+                .bodyValue(new CartaoRequestDto("12345678908", new BigDecimal(1000.00), "5678 6789 4572 9900", "07/25", "123"))
                 .exchange()
                 .expectStatus().isNotFound()
                 .expectBody(ErrorMessage.class)
@@ -68,7 +67,7 @@ public class CartaoIT {
                 .uri("/api/v1/cartoes")
                 .contentType(MediaType.APPLICATION_JSON)
                 .headers(JwtAuthentication.getHeaderAuthorization(webTestClient, "bia@email.com", "123456789"))
-                .bodyValue(new CartaoRequestDto("34567890123", new BigDecimal(1000.00), "5678 6789 4572 9900", YearMonth.of(2024, 8), "123"))
+                .bodyValue(new CartaoRequestDto("34567890123", new BigDecimal(1000.00), "5678 6789 4572 9900", "07/25", "123"))
                 .exchange()
                 .expectStatus().isEqualTo(409)
                 .expectBody(ErrorMessage.class)
@@ -88,7 +87,7 @@ public class CartaoIT {
                 .uri("/api/v1/cartoes")
                 .contentType(MediaType.APPLICATION_JSON)
                 .headers(JwtAuthentication.getHeaderAuthorization(webTestClient, "bia@email.com", "123456789"))
-                .bodyValue(new CartaoRequestDto("", new BigDecimal(1000.00), "5678 6789 4572 9900", YearMonth.of(2024, 8), "123"))
+                .bodyValue(new CartaoRequestDto("", new BigDecimal(1000.00), "5678 6789 4572 9900", "07/25", "123"))
                 .exchange()
                 .expectStatus().isEqualTo(422)
                 .expectBody(ErrorMessage.class)
@@ -102,7 +101,7 @@ public class CartaoIT {
                 .uri("/api/v1/cartoes")
                 .contentType(MediaType.APPLICATION_JSON)
                 .headers(JwtAuthentication.getHeaderAuthorization(webTestClient, "bia@email.com", "123456789"))
-                .bodyValue(new CartaoRequestDto("12345678901", new BigDecimal(0.0), "5678 6789 4572 9900", YearMonth.of(2024, 8), "123"))
+                .bodyValue(new CartaoRequestDto("12345678901", new BigDecimal(0.0), "5678 6789 4572 9900", "07/25", "123"))
                 .exchange()
                 .expectStatus().isEqualTo(422)
                 .expectBody(ErrorMessage.class)
@@ -120,7 +119,7 @@ public class CartaoIT {
                 .post()
                 .uri("/api/v1/cartoes")
                 .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(new CartaoRequestDto("12345678901", new BigDecimal(1000.00), "5678 6789 4572 9900", YearMonth.of(2024, 8), "123"))
+                .bodyValue(new CartaoRequestDto("12345678901", new BigDecimal(1000.00), "5678 6789 4572 9900", "07/25", "123"))
                 .exchange()
                 .expectStatus().isUnauthorized()
                 .expectBody(ErrorMessage.class)

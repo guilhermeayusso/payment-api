@@ -29,14 +29,14 @@ public class Cartao {
     @Column(name = "cpf", nullable = false, unique = true, length = 11)
     private String cpf;
 
-    @Column(name = "limite",nullable = false, columnDefinition = "decimal(7,2)")
+    @Column(name = "limite",nullable = false, columnDefinition = "decimal(10,2)")
     private BigDecimal limite;
 
     @Column(name = "numero_cartao", nullable = false, length = 19)
     private String numero;
 
     @Column(name = "data_validade", nullable = false)
-    private YearMonth dataValidade;
+    private String dataValidade;
 
     @Column(name = "cvv", nullable = false, length = 3)
     private String cvv;

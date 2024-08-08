@@ -10,7 +10,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.time.YearMonth;
 import java.util.UUID;
 
 @Getter
@@ -30,14 +29,14 @@ public class Pagamento {
     @Column(name = "cpf", nullable = false, unique = true, length = 11)
     private String cpf;
 
-    @Column(name = "valor",nullable = false, columnDefinition = "decimal(7,2)")
+    @Column(name = "valor",nullable = false, columnDefinition = "decimal(10,2)")
     private BigDecimal valor;
 
     @Column(name = "numero_cartao", nullable = false, length = 19)
     private String numero;
 
-    @Column(name = "dataValidade", nullable = false)
-    private YearMonth dataValidade;
+    @Column(name = "data_validade", nullable = false)
+    private String dataValidade;
 
     @Column(name = "cvv", nullable = false, length = 3)
     private String cvv;

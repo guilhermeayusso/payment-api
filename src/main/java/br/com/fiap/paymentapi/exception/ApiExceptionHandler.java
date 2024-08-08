@@ -36,7 +36,7 @@ public class ApiExceptionHandler {
                 .body(new ErrorMessage(request, HttpStatus.CONFLICT, ex.getMessage()));
     }
 
-    @ExceptionHandler({CpfNotFoundException.class, CardNotFoundException.class})
+    @ExceptionHandler({CpfNotFoundException.class, CardNotFoundException.class, PaymentNotFoundException.class})
     public ResponseEntity<ErrorMessage> notFoundException(RuntimeException ex, HttpServletRequest request) {
         log.error("Api Error - ", ex);
         return ResponseEntity
@@ -45,8 +45,8 @@ public class ApiExceptionHandler {
                 .body(new ErrorMessage(request, HttpStatus.NOT_FOUND, ex.getMessage()));
     }
 
-    @ExceptionHandler(ExceedLimitException.class)
-    public ResponseEntity<ErrorMessage> exceedLimitException(RuntimeException ex, HttpServletRequest request) {
+    @ExceptionHandler({ExceedLimitException.class, InvalidCardExpiryDateException.class, CardholderCpfMismatchException.class, InvalidCvvException.class})
+    public ResponseEntity<ErrorMessage> paymentException(RuntimeException ex, HttpServletRequest request) {
         log.error("Api Error - ", ex);
         return ResponseEntity
                 .status(HttpStatus.PAYMENT_REQUIRED)

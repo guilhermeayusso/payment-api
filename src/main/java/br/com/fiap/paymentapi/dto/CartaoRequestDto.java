@@ -1,6 +1,6 @@
 package br.com.fiap.paymentapi.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import br.com.fiap.paymentapi.annotations.DataDeValidade;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,6 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.YearMonth;
 
 @Getter
 @Setter
@@ -34,8 +33,9 @@ public class CartaoRequestDto implements Serializable {
     private String numero;
 
     @NotNull(message = "Data de validade do cartão deve ser preenchido")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/yy")
-    private YearMonth dataValidade;
+    @Pattern(regexp = "^(0[1-9]|1[0-2])/([0-9]{2})$", message = "Data de validade deve estar no formato MM/yy")
+    @DataDeValidade
+    private String dataValidade;
 
     @NotNull(message = "CVV deve ser preenchido")
     @Pattern(regexp = "\\d{3}", message = "CVV deve conter exatamente 3 dígitos numéricos")

@@ -8,6 +8,8 @@ import br.com.fiap.paymentapi.repository.PagamentoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @RequiredArgsConstructor
 @Service
 public class PagamentoService {
@@ -25,9 +27,9 @@ public class PagamentoService {
             throw new ExceedLimitException("Valor da compra não pode ser maior que o Limite. ");
         } else if (!pagamento.getDataValidade().equals(cartao.getDataValidade())) {
             throw new InvalidCardExpiryDateException("Data da validade do cartão incorreta. ");
-        } else if (pagamento.getCpf() != cartao.getCpf()) {
+        } else if (!pagamento.getCpf().equals(cartao.getCpf())) {
             throw new CardholderCpfMismatchException("CPF do cartão incorreta. ");
-        } else if (pagamento.getCvv() != cartao.getCvv()) {
+        } else if (!pagamento.getCvv().equals(cartao.getCvv())) {
             throw new InvalidCvvException("CVV do cartão incorreta. ");
         } else{
             cartao.setLimite(cartao.getLimite().subtract(pagamento.getValor()));
@@ -35,5 +37,11 @@ public class PagamentoService {
            return pagamentoRepository.save(pagamento);
         }
 
+    }
+
+    public Pagamento getById(UUID id){
+        return pagamentoRepository.findById(id).orElseThrow(
+                ()-> new PaymentNotFoundException("Pagamento inexistente. ")
+        );
     }
 }
