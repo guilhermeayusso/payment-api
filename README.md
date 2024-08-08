@@ -19,92 +19,9 @@
 
 **Nota:** Ambos os métodos requerem que o Docker esteja instalado em sua máquina.
 
-## Principais Funcionalidades
+## Documentação da API
+- **URL:** `http://localhost:8080/docs-payment.html`
 
-### 1. Registro de Cliente
-- **Endpoint:** `/api/cliente`
-- **Método:** POST
-- **Corpo da Requisição:**
-  ```
-  {
-      "cpf":"1111111111",
-      "nome":"João da Silva",
-      "email":"joao@example.com",
-      "telefone":"+55 11 91234-5678",
-      "rua":"Rua A",
-      "cidade":"Cidade",
-      "estado":"Estado",
-      "cep":"12345-678",
-      "pais":"Brasil"
-  }
-  ```
-- **Respostas:**
-    - 200: `{"id_cliente":"XXXXXX"}`
-    - 401: Não autorizado
-    - 500: Erro de negócio
-- **Autenticação:** Requer autenticação JWT.
+![image](https://github.com/user-attachments/assets/6bca6625-d52c-44fd-8078-af1e7d9a8068)
 
-### 2. Geração de Cartão
-- **Endpoint:** `/api/cartao`
-- **Método:** POST
-- **Corpo da Requisição:**
-  ```
-  {
-      "cpf":"1111111111",
-      "limite":1000,
-      "numero":"**** **** **** 1234",
-      "data_validade":"12/24",
-      "cvv":"123"
-  }
-  ```
-- **Respostas:**
-    - 200: Sucesso
-    - 401: Não autorizado
-    - 403: Número máximo de cartões atingido
-    - 500: Erro de negócio
-- **Autenticação:** Requer autenticação JWT.
-
-### 3. Registro de Pagamento
-- **Endpoint:** `/api/pagamentos`
-- **Método:** POST
-- **Corpo da Requisição:**
-  ```
-  {
-      "cpf":"1111111111",
-      "numero":"**** **** **** 1234",
-      "data_validade":"12/24",
-      "cvv":"123",
-      "valor":100.00
-  }
-  ```
-- **Respostas:**
-    - 200: `{"chave_pagamento":"XXXXXX"}`
-    - 401: Não autorizado
-    - 402: Limite do cartão excedido
-    - 500: Erro de negócio
-- **Autenticação:** Requer autenticação JWT.
-
-### 4. Consulta de Pagamentos por Cliente
-- **Endpoint:** `/api/pagamentos/cliente/{Chave}`
-- **Método:** GET
-- **Respostas:**
-    - 200: `[{"valor":100.00, "descricao":"Compra de produto X", "metodo_pagamento":"cartao_credito", "status":"aprovado"}]`
-    - 401: Não autorizado
-    - 500: Erro de negócio
-- **Autenticação:** Requer autenticação JWT.
-
-### 5. Autenticação
-- **Endpoint:** `/api/autenticacao`
-- **Método:** POST
-- **Corpo da Requisição:**
-  ```
-  {
-      "usuario":xxxxx,
-      "senha":"XXXX"
-  }
-  ```
-- **Respostas:**
-    - 200: `{"token":"XXXXXXXXX"}`
-    - 401: Não autorizado
-    - 500: Erro de negócio
 
